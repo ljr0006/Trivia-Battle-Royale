@@ -1,9 +1,54 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Trivia Battle Royale</title>
-    </head>
-    <body>
-        <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-    </body>
+<head>
+    <title>Trivia Battle Royale</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div id="stage">
+    <div id="container">
+      <div id="gameContainer">
+         <div id="gameHeader">
+           <div class="left questions">
+             <div class="container"><span></span></div>
+           </div>
+           <div class="left timer">
+             <div class="container">TIME: <span></span></div>
+           </div>
+           <div class="left score">
+             <div class="container">SCORE: <span></span></div>
+           </div>
+         </div>
+         <div id="gameChoices">
+           <div class="row">
+             <div class="left half">
+               <div class="container"><button id="buttonOne" data-index="0"></button></div>
+             </div>
+             <div class="left half">
+               <div class="container"><button id="buttonTwo" data-index="1"></button></div>
+             </div>
+           </div>
+           <div class="row">
+             <div class="left half">
+               <div class="container"><button id="buttonThree" data-index="2"></button></div>
+             </div>
+             <div class="left half">
+               <div class="container"><button id="buttonFour" data-index="3"></button></div>
+             </div>
+           </div>
+         </div>
+         <h1 id="title">WEB TRIVIA GAME</h1>
+      </div>
+      <button id="startButton">START</button>
+    </div>
+  </div>
+  <div id="modal_window">
+   <div class="modal_message">
+     <p></p>
+  </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+
 </html>
