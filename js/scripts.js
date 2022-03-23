@@ -3,6 +3,7 @@ var animationSetup = false;
 function animationPipeline() {
 
     /* Variables */
+    const questionTime = 20;
     var self = this,
     w = window.innerWidth,
     h = window.innerHeight,
@@ -25,7 +26,7 @@ function animationPipeline() {
     startAnimation = new TimelineMax({repeat:0}),
     gameIndex = 0,
     actualScore = 0,
-    timerIndex = 8,
+    timerIndex = questionTime,
     runningGameAgain = false,
     timerObject = undefined,
     gameQuestions = [],
@@ -33,28 +34,28 @@ function animationPipeline() {
     rightAnswer = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/RightSound2%202.mp3'),
     wrongAnser = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/wrongSound2.mp3'),
     questions = [
-        'The acronym CSS means what?',
-        'The acronym PHP means what?',
-        'Who was the creator of Git?',
-        'Django is a web framework for what language?',
-        'Which one of these is a CSS preprocessor?',
-        'A JavaScript catch block is written how?',
-        'What is the function of CSS on a website?',
-        'What does the &#60;b&#62; tag do in HTML?',
-        'What language was GSAP originally written in?',
-        'What type of file is a SVG file?'
+        'In the Waterfall software development model, what major step comes after \"Top-Level Design\"?',
+        'What is SDLC?',
+        'In project management, the four P\'s are People, Product, Process, and which P?',
+        'What are the features that a developed software product is expected to perform?',
+        'What does SRS stand for?',
+        'What is the definition of the user requirements in terms of requirements engineering?',
+        'In software architecture what is a component?',
+        'Which is not a debugging strategy?',
+        'How long does SCRUM sprint run for?',
+        'Which is not a type of Object-Oriented Integration Testing?'
     ],
     answers = [
-        ['Cool Style Sheets', 'Crummy Style Sheets', 'Cascading Style Sheets', 'Colored Style Sheets'],
-        ['PHP: Hypertext Preprocessor', 'Personal Hypertext Preprocessor', 'PHP', 'Patronizing Hypertext Preprocessor'],
-        ['Steve Jobs', 'Linus Torvalds', 'Steven Seagal', 'Tom Preston-Werner'],
-        ['Ruby', 'JavaScript', 'PHP', 'Python'],
-        ['HTML', 'React', 'SASS', 'Lua'],
-        ['catch(Exception $e){}', 'catch(Exception e){}', 'except Exception as inst', 'catch(err){}'],
-        ['Markup web pages', 'Output data to a client', 'Used to describe look and format of markup', 'NOTHING'],
-        ['Break to a new line', 'Insert server data', 'Bold Text', 'Bullet Point'],
-        ['VBScript', 'ActionScript', 'Silverlight', 'JavaScript'],
-        ['Bitmap', 'Vector', 'Raster', 'GIF']
+        ['Unit Testing', 'Implementation', 'Detailed Design', 'Requirement Analysis'],
+        ['Software Development Life Cycle', 'Software Design Life Cycle', 'Sequence Design Life Cycle', 'Sequence Development Life Cycle'],
+        ['Productivity', 'Project', 'Perspective', 'Point'],
+        ['Non-Functional Requests', 'Non-functional Requirements', 'Family Requirements', 'Functional Requirements'],
+        ['Sequence Requirement Specification', 'Sequence Request Specification', 'Software Requirement Specification', 'Software Request Specification'],
+        ['Describes why the product is being built and identify the benefits for both the customers and the business.', 'Describes the tasks or business processes a user will be able to perform with the product.', 'Describes the specific system behaviors that must be implemented', 'Describe the non-functional features such as quality attributes of Reliability, Performance, availability, and maintainability.'],
+        ['An element of information that is transferred from a component, or received by a component, via a connector', 'A coordinated set of architectural constraints that restricts the roles/features of architectural elements and the allowed relationships among those elements within any architecture that conforms to that style.', 'An abstract unit of software instructions and internal state that provides a transformation of data via its interface.', 'An abstract mechanism that mediates communication, coordination, or cooperation among components.'],
+        ['Brute force', 'Backtracking', 'Smoke Testing', 'Cause Elmination'],
+        ['Until after a product increment is ready', '2-4 Weeks', '3 days', 'several months'],
+        ['Thread-Based Testing', 'Unit-Based Testing', 'Use-Based Testing', 'Cluster Testing'],
     ],
     correctAnswers = [2,0,1,3,2,3,2,2,1,1],
     gameAnswers = [];
@@ -138,7 +139,7 @@ function animationPipeline() {
     self.updateClock = function() {
         timerIndex--;
         if (timerIndex == -1) {
-            timerIndex = 8;
+            timerIndex = questionTime;
             gameIndex++;
         }
 
@@ -147,7 +148,7 @@ function animationPipeline() {
             // end the game
             self.runEndOfGame();
             return;
-        } else if(timerIndex == 8){
+        } else if(timerIndex == questionTime){
             self.setupUserInterfaceWithData();
         }
         // Display updated time
@@ -261,7 +262,7 @@ function animationPipeline() {
                 gameIndex++;
                 // Determine if we need to run another game loop
                 if (gameIndex != gameQuestions.length) {
-                    timerIndex = 8;
+                    timerIndex = questionTime;
                     timerSpan[0].textContent = timerIndex
                     self.setupUserInterfaceWithData();
                     self.runTimer();
@@ -317,7 +318,7 @@ function animationPipeline() {
         gameIndex = 0;
         gameAnswers = [];
         actualScore = 0;
-        timerIndex = 8;
+        timerIndex = questionTime;
         gameQuestions = [];
         // Get the game indexes
         self.generateGameIndexes();
