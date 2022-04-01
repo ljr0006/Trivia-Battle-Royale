@@ -4,7 +4,7 @@ function animationPipeline() {
 
     // Variables
     var questionTime      = 20; // Default Time
-    const gameSize          = 2; //TODO: change this when done testing
+    const gameSize          = 5; //TODO: change this when done testing
     var self                = this;
     var w                   = window.innerWidth;
     var h                   = window.innerHeight;
@@ -28,6 +28,9 @@ function animationPipeline() {
     var startAnimation      = new TimelineMax({repeat:0});
     var gameIndex           = 0;
     var actualScore         = 0;
+    var actualScoreP2       = 0;
+    var playerTurnIndex     = 0;
+    var player              = 1;
     var timerIndex          = questionTime;
     var runningGameAgain    = false;
     var timerObject         = undefined;
@@ -100,8 +103,12 @@ function animationPipeline() {
         // Add data to the interface
         self.setupUserInterfaceWithData();
 
-        // Set the score to zero
-        scoreSpan[0].textContent = actualScore;
+        // Sets player turn label
+        scoreSpan[0].textContent = player;
+        // Set players 1 and 2s scores
+        scoreSpan[1].textContent = actualScore;
+        scoreSpan[2].textContent = actualScoreP2;
+        // Set Timer label
         timerSpan[0].textContent = timerIndex;
 
         startAnimation.timeScale(2)
@@ -197,11 +204,26 @@ function animationPipeline() {
         // Get the actual answer index
         var correctAnswerIndex = gameAnswers[gameIndex];
 
+        // Determine if it is player 1 or player 2's turn
+        if (playerTurnIndex % 2 == 0) {
+            player = 1;
+            scoreSpan[0].textContent = 2;
+        } else {
+            player = 2;
+            scoreSpan[0].textContent = 1;
+        }
+
         // Correct answer
         if (correctAnswerIndex == givenAnswerIndex) {
             correctSound.play();
-            actualScore += 10;
-            scoreSpan[0].textContent = actualScore;
+            // Add points to correct players total
+            if (player == 1) {
+                actualScore += 10;
+                scoreSpan[1].textContent = actualScore;
+            } else {
+                actualScoreP2 += 10;
+                scoreSpan[2].textContent = actualScoreP2;
+            }
             // cancelButtons = true;
             self.dispatch_modal('YOUR ANSWER IS: <span class="correct">CORRECT!</span>', 500);
 
@@ -211,6 +233,9 @@ function animationPipeline() {
             // cancelButtons = true;
             self.dispatch_modal('YOUR ANSWER IS: <span class="incorrect">INCORRECT!</span>', 500);
         }
+
+        // Increment Player turn index
+        playerTurnIndex += 1;
     }
 
     // This function generates random indexes to be used for our game logic
@@ -326,8 +351,20 @@ function animationPipeline() {
         window_width = window.innerWidth|| document.documentElement.clientWidth
         || document.body.clientWidth;
 
+        scoreSpan[0].textContent = "GAME OVER";
+
         var playAgainButton = '<button id="playAgain" class="center" style="margin:0 auto" onClick="self.resetGame()">PLAY AGAIN</button>';
-        var actualScoreHeader = '<h2 style="text-align:center">CONGRATS, YOUR FINAL SCORE IS: '+ actualScore + '</h2>';
+        var winnerMessage = ""
+        // Determine who the winner is
+
+        if ( actualScore > actualScoreP2 ) {
+            winnerMessage = "PLAYER 1 WON!";
+        } else if (actualScore < actualScoreP2) {
+            winnerMessage = "PLAYER 2 WON!";
+        } else {
+            winnerMessage = "TOO BAD! YOU TIED!";
+        }
+        var actualScoreHeader = '<h2 style="text-align:center">' + winnerMessage + '</h2>';
         var insertedHTML = actualScoreHeader +'<div>' + playAgainButton + '</div>';
 
         modal_window.getElementsByTagName('div')[0].innerHTML = insertedHTML;
@@ -348,12 +385,17 @@ function animationPipeline() {
         timerObject = undefined;
         gameIndex = 0;
         gameAnswers = [];
+        playerTurnIndex = 0;
+        player = 1;
         actualScore = 0;
+        actualScoreP2 = 0;
         timerIndex = questionTime;
         gameQuestions = [];
         self.generateGameIndexes();
         self.setupUserInterfaceWithData();
         scoreSpan[0].textContent = actualScore;
+        scoreSpan[1].textContent = actualScore;
+        scoreSpan[2].textContent = actualScoreP2;
         timerSpan[0].textContent = timerIndex;
         self.runTimer();
         gameMusic.currentTime = 0;

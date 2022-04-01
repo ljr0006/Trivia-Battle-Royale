@@ -184,6 +184,7 @@
 
   /* Modal Window Styles */
   #modal_window{
+    transform: translate(30%, 30%);
     position: absolute;
     top:90px;
     border:1px solid #333;
@@ -234,16 +235,6 @@
   .modal_message div button:hover {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.26), 0 4px 15px 0 rgba(0, 0, 0, 0.26);
     background-color: #ff6a3c;
-  }
-
-  .modal_message div button.twitter {
-    background-color: #55acee;
-    margin-right: 38px;
-  }
-
-  .modal_message div button.twitter:hover {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.26), 0 4px 15px 0 rgba(0, 0, 0, 0.26);
-    background-color: #83c3f3
   }
 
   .modal_message span.correct {
