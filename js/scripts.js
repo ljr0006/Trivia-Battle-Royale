@@ -3,7 +3,7 @@
 function animationPipeline() {
 
     // Variables
-    const questionTime      = 20;
+    var questionTime      = 20; // Default Time
     const gameSize          = 2; //TODO: change this when done testing
     var self                = this;
     var w                   = window.innerWidth;
@@ -11,6 +11,7 @@ function animationPipeline() {
     var stage               = document.getElementById('stage');
     var startButton         = document.getElementById('startButton');
     var title               = document.getElementById('title');
+    var valueTag            = document.getElementById('valueTag')
     var questionTitle       = document.getElementsByClassName("questions");
     var score               = document.getElementsByClassName("score");
     var scoreSpan           = score[0].getElementsByTagName('span');
@@ -31,6 +32,8 @@ function animationPipeline() {
     var runningGameAgain    = false;
     var timerObject         = undefined;
     var gameQuestions       = [];
+
+
     // const gameMusic         = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/math2.mp3');
     // const correctSound      = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/RightSound2%202.mp3');
     // const wrongSound        = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/wrongSound2.mp3');
@@ -70,7 +73,6 @@ function animationPipeline() {
     // setup event listers for the buttons and recalculate window size
     // this is called at the end animationPipeline()
     self._initialize = function() {
-
         self.windowWasResized();
 
         // add start button listener
@@ -89,6 +91,9 @@ function animationPipeline() {
     // called when the start button is pressed
     self.startGamePlay = function() {
 
+        questionTime = parseInt(document.getElementById('demo').innerHTML);
+        timerIndex = questionTime;
+
         // Get the game indexes
         self.generateGameIndexes();
 
@@ -100,8 +105,8 @@ function animationPipeline() {
         timerSpan[0].textContent = timerIndex;
 
         startAnimation.timeScale(2)
-        startAnimation.to([startButton, title], 1, {alpha:0});
-        startAnimation.to([startButton, title], 0.1, {css:{display:'none'}});
+        startAnimation.to([startButton, title, slider, valueTag], 1, {alpha:0});
+        startAnimation.to([startButton, title, slider, valueTag], 0.1, {css:{display:'none'}});
         startAnimation.to([gameHeader, gameChoices], 0.1, {css:{display:'block'}, onComplete:self.fireOffGameLogic});
     };
 
@@ -321,8 +326,8 @@ function animationPipeline() {
         window_width = window.innerWidth|| document.documentElement.clientWidth
         || document.body.clientWidth;
 
-        var playAgainButton = '<button id="playAgain" class="center" onClick="self.resetGame()">PLAY AGAIN</button>';
-        var actualScoreHeader = '<h2>CONGRATS, YOUR FINAL SCORE IS: '+ actualScore + '</h2>';
+        var playAgainButton = '<button id="playAgain" class="center" style="margin:0 auto" onClick="self.resetGame()">PLAY AGAIN</button>';
+        var actualScoreHeader = '<h2 style="text-align:center">CONGRATS, YOUR FINAL SCORE IS: '+ actualScore + '</h2>';
         var insertedHTML = actualScoreHeader +'<div>' + playAgainButton + '</div>';
 
         modal_window.getElementsByTagName('div')[0].innerHTML = insertedHTML;
