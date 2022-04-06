@@ -19,6 +19,7 @@
   .nav-link:focus,
   .nav-link:hover {
     background-color: #ffffff26;
+    cursor: pointer;
   }
   
   .my-container {
