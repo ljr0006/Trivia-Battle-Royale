@@ -1,0 +1,11 @@
+ID,Question,Correct Answer,Wrong Answer 1,Wrong Answer 2,Wrong Answer 3
+4,What is the SDLC?,Software Development Life Cycle,Software Design Life Cycle,Sequence Design Life Cycle,Sequence Development Life Cycle
+5,"In project management, the four P's are People, Product, Process, and which P?",Project,Productivity,Perspective,Point.
+100,"In the Waterfall software development model, what major step comes after Top-Level Design?",Detailed Design,Unit Testing,Implementation,Requirement Analysis
+101,What is SDLC?,Software Development Life Cycle,Software Design Life Cycle,Sequence Design Life Cycle, Sequence Development Life Cycle
+102,What are the features that a developed software product is expected to perform?,Functional Requirements,Non-Functional Requests,Non-functional Requirements,Family Requirements
+103,What does SRS stand for?,Software Requirement Specification,Sequence Requirement Specification,Sequence Request Specification,Software Request Specification
+104,In software architecture what is a component?,"An abstract mechanism that mediates communication, coordination, or cooperation among components.","An element of information that is transferred from a component, or received by a component, via a connector",A coordinated set of architectural constraints that restricts the roles/features of architectural elements and the allowed relationships among those elements within any architecture that conforms to that style.,An abstract unit of software instructions and internal state that provides a transformation of data via its interface.
+105,Which is not a debugging strategy?,Smoke Testing,Brute force,Backtracking,Cause Elmination
+106,How long does SCRUM sprint run for?,2-4 Weeks,Until after a product increment is ready,3 days,several months
+500,Which is not a type of Object-Oriented Integration Testing?,Unit-Based Testing,Thread-Based Testing,Use-Based Testing,Cluster Testing

@@ -1,9 +1,12 @@
-// var animationSetup = false;
+
+var questions               = [];
+var answers                 = [];
+var correctAnswers          = [];
 
 function animationPipeline() {
 
     // Variables
-    var questionTime      = 20; // Default Time
+    var questionTime        = 20; // Default Time
     const gameSize          = 5; //TODO: change this when done testing
     var self                = this;
     var w                   = window.innerWidth;
@@ -32,50 +35,15 @@ function animationPipeline() {
     var playerTurnIndex     = 0;
     var player              = 1;
     var timerIndex          = questionTime;
-    var runningGameAgain    = false;
     var timerObject         = undefined;
     var gameQuestions       = [];
-
-
-    // const gameMusic         = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/math2.mp3');
-    // const correctSound      = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/RightSound2%202.mp3');
-    // const wrongSound        = new Audio('http://f5361a5c08a4c03f7c6f-acbeb9602bd0a56bf9c1a6bed3d8280b.r27.cf2.rackcdn.com/wrongSound2.mp3');
-    const gameMusic         = new Audio('');
-    const correctSound      = new Audio('');
-    const wrongSound        = new Audio('');
-    const questions         = [
-        'In the Waterfall software development model, what major step comes after \"Top-Level Design\"?',
-        'What is SDLC?',
-        'In project management, the four P\'s are People, Product, Process, and which P?',
-        'What are the features that a developed software product is expected to perform?',
-        'What does SRS stand for?',
-        'What is the definition of the user requirements in terms of requirements engineering?',
-        'In software architecture what is a component?',
-        'Which is not a debugging strategy?',
-        'How long does SCRUM sprint run for?',
-        'Which is not a type of Object-Oriented Integration Testing?'
-    ];
-    const answers           = [
-        ['Unit Testing', 'Implementation', 'Detailed Design', 'Requirement Analysis'],
-        ['Software Development Life Cycle', 'Software Design Life Cycle', 'Sequence Design Life Cycle', 'Sequence Development Life Cycle'],
-        ['Productivity', 'Project', 'Perspective', 'Point'],
-        ['Non-Functional Requests', 'Non-functional Requirements', 'Family Requirements', 'Functional Requirements'],
-        ['Sequence Requirement Specification', 'Sequence Request Specification', 'Software Requirement Specification', 'Software Request Specification'],
-        ['Describes why the product is being built and identify the benefits for both the customers and the business.', 'Describes the tasks or business processes a user will be able to perform with the product.', 'Describes the specific system behaviors that must be implemented', 'Describe the non-functional features such as quality attributes of Reliability, Performance, availability, and maintainability.'],
-        ['An element of information that is transferred from a component, or received by a component, via a connector', 'A coordinated set of architectural constraints that restricts the roles/features of architectural elements and the allowed relationships among those elements within any architecture that conforms to that style.', 'An abstract unit of software instructions and internal state that provides a transformation of data via its interface.', 'An abstract mechanism that mediates communication, coordination, or cooperation among components.'],
-        ['Brute force', 'Backtracking', 'Smoke Testing', 'Cause Elmination'],
-        ['Until after a product increment is ready', '2-4 Weeks', '3 days', 'several months'],
-        ['Thread-Based Testing', 'Unit-Based Testing', 'Use-Based Testing', 'Cluster Testing'],
-    ];
-    const correctAnswers    = [2,0,1,3,2,3,2,2,1,1];
     var gameAnswers         = [];
-
 
     // Methods
 
     // setup event listers for the buttons and recalculate window size
     // this is called at the end animationPipeline()
-    self._initialize = function() {
+    self._initialize = function () {
         self.windowWasResized();
 
         // add start button listener
@@ -84,15 +52,15 @@ function animationPipeline() {
 
     // this in effect causes the dimensions to be recalculated every time the window is resized
     // Called during self._initialize() to calculate new dimensions
-    self.windowWasResized = function() {
+    self.windowWasResized = function () {
 
         stage.style.height = (h - 20) + 'px';
-        stage.style.width  = (w - 20) + 'px';
+        stage.style.width = (w - 20) + 'px';
     };
 
     // Setup the stage and fire off the stage animations
     // called when the start button is pressed
-    self.startGamePlay = function() {
+    self.startGamePlay = function () {
 
         questionTime = parseInt(document.getElementById('demo').innerHTML);
         timerIndex = questionTime;
@@ -112,24 +80,21 @@ function animationPipeline() {
         timerSpan[0].textContent = timerIndex;
 
         startAnimation.timeScale(2)
-        startAnimation.to([startButton, title, slider, valueTag], 1, {alpha:0});
-        startAnimation.to([startButton, title, slider, valueTag], 0.1, {css:{display:'none'}});
-        startAnimation.to([gameHeader, gameChoices], 0.1, {css:{display:'block'}, onComplete:self.fireOffGameLogic});
+        startAnimation.to([startButton, title, slider, valueTag], 1, { alpha: 0 });
+        startAnimation.to([startButton, title, slider, valueTag], 0.1, { css: { display: 'none' } });
+        startAnimation.to([gameHeader, gameChoices], 0.1, { css: { display: 'block' }, onComplete: self.fireOffGameLogic });
     };
 
-    // starts the timer and plays the music at the same time
+    // starts the timer
     // Callback function from the startAnimation timeline above
     // this runs at the end of the last animation in self.startGamePlay()
-    self.fireOffGameLogic = function() {
-
+    self.fireOffGameLogic = function () {
         self.runTimer();
-        gameMusic.currentTime = 0;
-        gameMusic.play();
     }
 
     // rebuild the UI with a new question and answer, reload button events
     // called in multiple places as needed
-    self.setupUserInterfaceWithData = function() {
+    self.setupUserInterfaceWithData = function () {
 
         // re (add) answer button listener
         for (var i = 0; i < buttonArray.length; i++) {
@@ -152,7 +117,7 @@ function animationPipeline() {
 
     // start a gameplay timer that runs every second
     // called in multiple places as needed
-    self.runTimer = function() {
+    self.runTimer = function () {
 
         timerObject = window.setInterval(self.updateClock, 1000);
     };
@@ -161,7 +126,7 @@ function animationPipeline() {
     // this decrements the gameplay timer every second, going to the next
     // question once the timer runs out, it goes to the end of game once
     // all questions are done
-    self.updateClock = function() {
+    self.updateClock = function () {
 
         timerIndex--;
         if (timerIndex == -1) {
@@ -187,17 +152,15 @@ function animationPipeline() {
     // Determines if an answer is correct or incorrect
     // Displays a message to user and plays sound effect
     // called when an answer button is pressed
-    self.answerClicked = function(event) {
+    self.answerClicked = function (event) {
 
         // remove answer button listeners to prevent eronious clicks
         for (var i = 0; i < buttonArray.length; i++) {
             buttonArray[i].removeEventListener('click', self.answerClicked, false);
         }
 
-        // stop timer and music
+        // stop timer
         clearTimeout(timerObject);
-        gameMusic.pause();
-        gameMusic.currentTime = 0;
 
         // Get the answer index
         var givenAnswerIndex = Number(event.target.getAttribute('data-index'));
@@ -215,7 +178,6 @@ function animationPipeline() {
 
         // Correct answer
         if (correctAnswerIndex == givenAnswerIndex) {
-            correctSound.play();
             // Add points to correct players total
             if (player == 1) {
                 actualScore += 10;
@@ -229,7 +191,6 @@ function animationPipeline() {
 
         // Incorrect Answer
         } else {
-            wrongSound.play();
             // cancelButtons = true;
             self.dispatch_modal('YOUR ANSWER IS: <span class="incorrect">INCORRECT!</span>', 500);
         }
@@ -242,11 +203,11 @@ function animationPipeline() {
     // The indexes are used to assign questions and correct answers
     // called on new game
     // TODO: don't just "hope" and repeat until we get a new random number
-    self.generateGameIndexes = function() {
+    self.generateGameIndexes = function () {
 
         while (gameQuestions.length < gameSize) {
 
-            var randomNumber = Math.floor(Math.random() * 9);
+            var randomNumber = Math.floor(Math.random() * questions.length);
 
             if (gameQuestions.indexOf(randomNumber) == -1) {
                 gameQuestions.push(randomNumber);
@@ -257,10 +218,10 @@ function animationPipeline() {
 
     // Dispatches a modal window with a message to user
     // called after answer clicked to display correct or incorrect message
-    self.dispatch_modal = function(message, time) {
+    self.dispatch_modal = function (message, time) {
 
         window_width = window.innerWidth || document.documentElement.clientWidth
-        || document.body.clientWidth;
+            || document.body.clientWidth;
 
         modal_window.getElementsByTagName('p')[0].innerHTML = message;
         modal_window.style.left = ((window_width / 2) - 150) + 'px';
@@ -272,7 +233,7 @@ function animationPipeline() {
     // fade_in function emulates the fadeIn() jQuery function
     // called by self.dispatch_modal() to fade in and out the messages
     // and for end of game messages (persists, doesn't fade out)
-    self.fade_in = function(time, elem, persist) {
+    self.fade_in = function (time, elem, persist) {
 
         var opacity = 0;
         var interval = 50;
@@ -282,7 +243,7 @@ function animationPipeline() {
         elem.style.display = 'block';
         elem.style.opacity = opacity;
 
-        var fading = window.setInterval(function() {
+        var fading = window.setInterval(function () {
 
             opacity += gap;
             elem.style.opacity = opacity;
@@ -294,7 +255,7 @@ function animationPipeline() {
                 // fade out if the element shouldn't persist
                 if (!persist) {
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         self.fade_out(time, elem);
                     }, 1500);
                 }
@@ -307,13 +268,13 @@ function animationPipeline() {
     // Credit for the idea about fade_in and fade_out to Todd Motto
     // fade_out function emulates the fadeOut() jQuery function
     // called by self.fade_in() to remove non persisting messages
-    self.fade_out = function(time, elem) {
+    self.fade_out = function (time, elem) {
 
         var opacity = 1;
         var interval = 50;
         var gap = interval / time;
 
-        var fading = window.setInterval(function() {
+        var fading = window.setInterval(function () {
 
             opacity -= gap;
             elem.style.opacity = opacity;
@@ -332,7 +293,6 @@ function animationPipeline() {
                     timerSpan[0].textContent = timerIndex
                     self.setupUserInterfaceWithData();
                     self.runTimer();
-                    gameMusic.play();
 
                 // otherwise goto end of gamae
                 } else {
@@ -346,10 +306,10 @@ function animationPipeline() {
     // Display a modal window with the option to play again
     // Runs when the game ends
     // TODO: center play again button
-    self.runEndOfGame = function() {
+    self.runEndOfGame = function () {
 
-        window_width = window.innerWidth|| document.documentElement.clientWidth
-        || document.body.clientWidth;
+        window_width = window.innerWidth || document.documentElement.clientWidth
+            || document.body.clientWidth;
 
         scoreSpan[0].textContent = "GAME OVER";
 
@@ -357,7 +317,7 @@ function animationPipeline() {
         var winnerMessage = ""
         // Determine who the winner is
 
-        if ( actualScore > actualScoreP2 ) {
+        if (actualScore > actualScoreP2) {
             winnerMessage = "PLAYER 1 WON!";
         } else if (actualScore < actualScoreP2) {
             winnerMessage = "PLAYER 2 WON!";
@@ -365,7 +325,7 @@ function animationPipeline() {
             winnerMessage = "TOO BAD! YOU TIED!";
         }
         var actualScoreHeader = '<h2 style="text-align:center">' + winnerMessage + '</h2>';
-        var insertedHTML = actualScoreHeader +'<div>' + playAgainButton + '</div>';
+        var insertedHTML = actualScoreHeader + '<div>' + playAgainButton + '</div>';
 
         modal_window.getElementsByTagName('div')[0].innerHTML = insertedHTML;
         modal_window.style.left = ((window_width / 2) - 150) + 'px';
@@ -376,7 +336,7 @@ function animationPipeline() {
     // This function resets the game and starts it all over again
     // This function acts as to reset all data from scratch
     // called when the end of game play again button is pressed
-    self.resetGame = function() {
+    self.resetGame = function () {
 
         modal_window.style.opacity = 0.0; // TODO: why not just 0 ???
         modal_window.innerHTML = '<div class="modal_message"><p></p></div>';
@@ -398,28 +358,64 @@ function animationPipeline() {
         scoreSpan[2].textContent = actualScoreP2;
         timerSpan[0].textContent = timerIndex;
         self.runTimer();
-        gameMusic.currentTime = 0;
-        gameMusic.play();
     };
 
     // Initialize the controller
     self._initialize();
 }
 
+function shuffle(array) {
+    let shuffled_array = [...array]
+    shuffled_array.sort(() => Math.random() - 0.5);
+    return shuffled_array
+}
+
+// process the aproved questions to add them to the question pool
+function processData(allText) {
+
+    output = Papa.parse(allText);
+    output.data.shift();
+    output.data.forEach(entry => {
+        if (!entry.includes("")) {
+            entry.shift();
+            questions.push(entry[0]);
+
+            shuffled_question = shuffle(entry.slice(1,5));
+            answers.push(shuffled_question);
+            correctAnswers.push(shuffled_question.indexOf(entry[1]));
+        }
+    });
+    console.log(questions);
+    console.log(correctAnswers);
+    console.log(answers);
+}
 
 // create an anonymous function that gets called every .1 seconds using setInterval
 // this anonymous function checks to see if the document is ready (downloaded and displayed)
 // once this happens it calls the animation pipeline function and clears the interval
 // this mean this anonymous function will no longer be called after the animation pipeline starts
 // it also then tells the web browser to call animation pipeline anytime the window is resized
-var interval = setInterval(function() {
+var interval = setInterval(function () {
 
     if (document.readyState === 'complete') {
         clearInterval(interval);
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "questions/approved_questions.csv",
+                dataType: "text",
+                success: function (data) {
+                    processData(data);
+                }
+            });
+        });
+
         var pipe = animationPipeline();
 
-        window.onresize = function(event) {
-            var pipe = animationPipeline()
-        };
+        // this breaks the game
+        // window.onresize = function (event) {
+        //     var pipe = animationPipeline()
+        // };
     }
 }, 100);
