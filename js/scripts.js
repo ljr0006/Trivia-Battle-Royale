@@ -385,9 +385,6 @@ function processData(allText) {
             correctAnswers.push(shuffled_question.indexOf(entry[1]));
         }
     });
-    console.log(questions);
-    console.log(correctAnswers);
-    console.log(answers);
 }
 
 // create an anonymous function that gets called every .1 seconds using setInterval
