@@ -10,7 +10,7 @@
     height: 100%;
     position: fixed;
     /*margin-left: -300px;*/
-    background-color:#90a4ae;
+    background-color:#815b8f;
     transition: 0.5s;
     border-right: 10px solid rgb(218, 218, 218)
   }
@@ -55,7 +55,8 @@
     font-family: "fortnite", sans-serif;
     font-weight: 400;
     min-height: 100vh;
-    background-color:#90a4ae;
+    background-image: url('images/fortnite.jpg');
+    /* background-color:#90a4ae; */
   }
 
   /* Stage Structure Styles */
@@ -64,7 +65,8 @@
     width: 100%;
     height: 100%;
     padding-right: 9%;
-    background-color:#90a4ae;
+    background-image: url('images/fortnite.jpg');
+    /*background-color:#90a4ae;*/
     position: fixed;
     top:0;
   }

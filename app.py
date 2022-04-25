@@ -24,7 +24,7 @@ def create():
                <!-- Bootstrap CDN -->
                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"/>
              </head>
-             <body style="background-color:#90a4ae;">
+             <body style="background-image: url(https://wallpaperaccess.com/full/225661.jpg);background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
                <div class="container mt-5 text-center">
                  <h3>Create new entry:</h3>
                  <form class="mt-4";" method="POST">
@@ -84,7 +84,7 @@ def read():
            <!-- Bootstrap CDN -->
            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"/>
          </head>
-         <body style="background-color:#90a4ae;">
+         <body style="background-image: url(https://wallpaperaccess.com/full/225661.jpg);background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
            <div class="container">
              <!-- CRUD operations -->
              <div class="col">
@@ -93,7 +93,7 @@ def read():
              </div>
 
              <!-- CSV data -->
-             <table class="table table-striped mt-2" style="width: 100%; border: 1px solid black; background-color:#fff;">
+             <table class="table table-striped mt-2" style="width: 100%; border: 1px solid black; background-color: #fff;">
                <thead>
                  <tr class="bg-secondary text-white">
                    {% for header in data[0].keys() %}
@@ -122,7 +122,7 @@ def read():
             <!-- Bootstrap CDN -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"/>
             </head>
-            <body style="background-color:#90a4ae;">
+            <body style="background-image: url(https://wallpaperaccess.com/full/225661.jpg);background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
             <div class="container">
                 <!-- CRUD operations -->
                 <div class="col">
@@ -131,7 +131,7 @@ def read():
                 </div>
 
                 <!-- CSV data -->
-                <table class="table table-striped mt-2" style="width: 100%; border: 1px solid black; background-color:#fff;">
+                <table class="table table-striped mt-2" style="width: 100%; border: 1px solid black; background-color: #fff;">
                 <thead>
                     <tr class="bg-secondary text-white">
                     {% for header in data[0].keys() %}

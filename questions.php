@@ -85,13 +85,11 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="css/styles.css" />
 </head>
 
-<body>
+<body style="background-image: url(https://wallpaperaccess.com/full/225661.jpg);background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
     <!-- Side-Nav -->
     <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar" style="font-family: fortnite, sans-serif; font-size: xx-large">
         <ul class="nav flex-column text-white w-100">
-            <p class="h3 text-white my-4" style="text-align: center">
-                T B R
-            </p>
+        <img src="images/icon.png" style="width: 80px; height:80px; margin-left: auto; margin-right: auto;">
             <li onclick="location.href = 'index.html';" style="color:white" class="nav-link">
                 <i class="bi bi-house-fill"></i>
                 <span class="mx-2">Home</span>
@@ -116,7 +114,7 @@ if (isset($_POST["submit"])) {
         </head>
 
         <body style="background-color:#90a4ae; color: #fff;">
-            <div class="container" style="font-family: fortnite, sans-serif; font-size: xx-large;">
+            <div class="container" style="font-family: fortnite, sans-serif; font-size: xx-large; color: #fff">
                 <h2 align="center">Enter Your Own Question</h2>
                 <div class="col-md-12" style="margin:0 auto; float:none;">
                     <form method="post">
