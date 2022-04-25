@@ -92,11 +92,12 @@ if (isset($_POST["submit"])) {
             <p class="h3 text-white my-4" style="text-align: center">
                 T B R
             </p>
-            <li href="index.html" class="nav-link">
+            <li onclick="location.href = 'index.html';" style="color:white" class="nav-link">
                 <i class="bi bi-house-fill"></i>
                 <span class="mx-2">Home</span>
             </li>
-            <li href="questions.php" class="nav-link">
+
+            <li onclick="location.href = 'questions.php';" style="color:white" class="nav-link">
                 <i class="bi bi-clipboard2-plus"></i>
                 <span class="mx-2">Add Questions</span>
             </li>
