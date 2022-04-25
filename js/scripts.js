@@ -39,6 +39,9 @@ function animationPipeline() {
     var gameQuestions       = [];
     var gameAnswers         = [];
 
+    var audio = new Audio('https://vgmsite.com/soundtracks/fortnite-battle-royale-soundtrack/jsmjpvaq/01.%20Battle%20Royal%20%28Guitar%20Theme%29.mp3');
+    audio.play();
+
     // Methods
 
     // setup event listers for the buttons and recalculate window size
@@ -409,7 +412,6 @@ var interval = setInterval(function () {
         });
 
         var pipe = animationPipeline();
-
         // this breaks the game
         // window.onresize = function (event) {
         //     var pipe = animationPipeline()
