@@ -1,4 +1,5 @@
-# Simple CSV based CRUD web app
+# admin page
+
 
 import csv
 import json
