@@ -39,8 +39,9 @@ function animationPipeline() {
     var gameQuestions       = [];
     var gameAnswers         = [];
 
-    var audio = new Audio('https://vgmsite.com/soundtracks/fortnite-battle-royale-soundtrack/jsmjpvaq/01.%20Battle%20Royal%20%28Guitar%20Theme%29.mp3');
-    audio.play();
+    var gameAudio = new Audio('https://vgmsite.com/soundtracks/fortnite-battle-royale-soundtrack/jsmjpvaq/01.%20Battle%20Royal%20%28Guitar%20Theme%29.mp3');
+    var winAudio = new Audio('https://www.myinstants.com/media/sounds/qqrlvfre9au-00_00_16.mp3');
+    gameAudio.play();
 
     // Methods
 
@@ -310,6 +311,7 @@ function animationPipeline() {
     // Runs when the game ends
     // TODO: center play again button
     self.runEndOfGame = function () {
+        winAudio.play();
 
         window_width = window.innerWidth || document.documentElement.clientWidth
             || document.body.clientWidth;
@@ -361,6 +363,10 @@ function animationPipeline() {
         scoreSpan[2].textContent = actualScoreP2;
         timerSpan[0].textContent = timerIndex;
         self.runTimer();
+
+        //audio stuff
+        winAudio.pause();
+        winAudio.currentTime = 0;
     };
 
     // Initialize the controller
